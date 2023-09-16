@@ -35,6 +35,10 @@ impl<A> Lambda<A> {
     pub fn to_input_path(self, path: Vec<String>) -> Lambda<serde_json::Value> {
         Lambda::new(Expression::Input(self.box_expr(), path))
     }
+
+    pub fn to_unsafe_wasm_plugin(self, plugin: String) -> Lambda<serde_json::Value> {
+        Lambda::new(Expression::Unsafe(self.box_expr(), Operation::WasmPlugin(plugin)))
+    }
 }
 
 impl Lambda<serde_json::Value> {

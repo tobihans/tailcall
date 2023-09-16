@@ -41,6 +41,7 @@ reqwest-middleware = "0.2.3"
 async-trait = "0.1.73"
 serde_path_to_error = "0.1.14"
 moka = "0.11.3"
+wasmer = "4.1.2"
 
 [dev-dependencies]
 httpmock = "0.6"

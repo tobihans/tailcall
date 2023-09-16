@@ -158,6 +158,7 @@ pub struct Field {
     #[serde(rename = "unsafe")]
     pub unsafe_operation: Option<Unsafe>,
     pub batch: Option<Batch>,
+    pub wasm_plugin: Option<WasmPlugin>,
 }
 
 impl Field {
@@ -251,4 +252,9 @@ impl Config {
     pub fn n_plus_one(&self) -> Vec<Vec<(String, String)>> {
         super::n_plus_one::n_plus_one(self)
     }
+}
+
+#[derive(Serialize, Deserialize, Clone, Debug, Default)]
+pub struct WasmPlugin {
+    pub name: String,
 }

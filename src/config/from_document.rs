@@ -199,6 +199,7 @@ fn to_common_field(
     let modify = to_modify(directives);
     let inline = to_inline(directives);
     let http = to_http(directives);
+    let wasm_plugin = to_wasm_plugin(directives);
     let unsafe_operation = to_unsafe_operation(directives);
     let batch = to_batch(directives);
     config::Field {
@@ -213,6 +214,7 @@ fn to_common_field(
         http,
         unsafe_operation,
         batch,
+        wasm_plugin,
     }
 }
 fn to_unsafe_operation(directives: &[Positioned<ConstDirective>]) -> Option<config::Unsafe> {
@@ -297,6 +299,15 @@ fn to_batch(directives: &[Positioned<ConstDirective>]) -> Option<Batch> {
     directives.iter().find_map(|directive| {
         if directive.node.name.node == "batch" {
             Batch::from_directive(&directive.node).ok()
+        } else {
+            None
+        }
+    })
+}
+fn to_wasm_plugin(directives: &[Positioned<ConstDirective>]) -> Option<config::WasmPlugin> {
+    directives.iter().find_map(|directive| {
+        if directive.node.name.node == "wasmPlugin" {
+            config::WasmPlugin::from_directive(&directive.node).ok()
         } else {
             None
         }
